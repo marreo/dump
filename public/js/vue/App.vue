@@ -2,7 +2,7 @@
     .container
       input(type='hidden', name='_csrf', :value="csrfToken")
       .datebox(v-if="showVote")
-        h1 For how long will Trump last as US President?
+        h1 For how long will Trump serve as the 45th US President?
         .btn-group.btn-group-lg.btn-group-toggle.row(data-toggle="buttons")
           label.btn.btn-danger.col-sm-4
             input(type="radio" name="vote" value="1" autocomplete="off" checked="")
@@ -50,7 +50,7 @@
             input(type="radio" name="vote" value="15" autocomplete="off") 
             | 2025 Q1
         .col
-          button.btn.btn-lg.col-12(v-on:click="voteClick")
+          button.btn.btn-lg.col-12(v-on:click="voteClick", disabled)#btnVote
             | Vote!
       .loader(v-if="showLoader")
         section
@@ -59,7 +59,8 @@
             .sk-bounce-1.sk-child
             .sk-bounce-2.sk-child
             .sk-bounce-3.sk-child
-      .resultBox
+      .resultBox(v-if="!showVote")
+        h1 The popular vote
         canvas#canvas(style="width: 100%;display: block;margin: 0 auto;")
         .share
           a(href="#")
@@ -68,6 +69,8 @@
             i.fab.fa-reddit-square
           a(href="#")
             i.fas.fa-envelope-square
+          a.text-delete(href="https://www.theverge.com/2018/3/20/17142806/how-to-delete-facebook-page-account-data-privacy" target="_blank")
+            span #deletefacebook
 </template>
 
 <style>

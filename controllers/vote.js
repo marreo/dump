@@ -86,8 +86,9 @@ exports.get = (req, res) => {
 };
 
 exports.post = (req, res, data, vueOptions) => {
-  if (localStorage.getItem('voted')) {
-    res.sendStatus(500);
+  // if (localStorage.getItem('voted')) {
+  if (false) {
+    res.status(500).send('Already voted')
   } else {
     localStorage.setItem('voted', 'y')
     Vote.create({

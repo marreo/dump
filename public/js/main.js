@@ -8,5 +8,5 @@ fontawesome.library.add(faRedditSquare);
 fontawesome.library.add(faEnvelopeSquare);
 
 $(document).ready(function () {
-
+    $(document).on('click', 'label.btn', function() { $('#btnVote').prop('disabled', false); })
 });
