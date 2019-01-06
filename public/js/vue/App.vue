@@ -1,53 +1,59 @@
 <template lang="pug">
     .container
       input(type='hidden', name='_csrf', :value="csrfToken")
-      .datebox(v-if="showVote")
+      .datebox.text-center(v-if="showVote")
         h1 For how long will Trump serve as the 45th US President?
-        .btn-group.btn-group-lg.btn-group-toggle.row(data-toggle="buttons")
-          label.btn.btn-danger.col-sm-4
-            input(type="radio" name="vote" value="1" autocomplete="off" checked="")
+        .btn-group.btn-group-lg.btn-group-toggle.row.btn-group-vertical.col-sm-4(data-toggle="buttons")
+          label.btn.btn-danger
+            input(type="radio" name="vote" id="btn-v1" value="0" autocomplete="off" checked="")
+            | 2017 Q1
+          label.btn.btn-danger
+            input(type="radio" name="vote" id="btn-v2" value="0" autocomplete="off")
+            | 2017 Q2
+          label.btn.btn-light
+            input(type="radio" name="vote" id="btn-v3" value="1" autocomplete="off" checked="")
             | 2018 Q1
-          label.btn.btn-danger.col-sm-4
-            input(type="radio" name="vote" value="2" autocomplete="off")
+          label.btn.btn-light
+            input(type="radio" name="vote" id="btn-v4" value="2" autocomplete="off")
             | 2018 Q2
-          label.btn.btn-danger.col-sm-4
-            input(type="radio" name="vote" value="3" autocomplete="off" checked="")
+          label.btn.btn-primary
+            input(type="radio" name="vote" id="btn-v5" value="3" autocomplete="off" checked="")
             | 2019 Q1
-          label.btn.btn-light.col-sm-4
-            input(type="radio" name="vote" value="4" autocomplete="off") 
+          label.btn.btn-primary
+            input(type="radio" name="vote" id="btn-v6" value="4" autocomplete="off") 
             | 2019 Q2
-          label.btn.btn-light.col-sm-4
-            input(type="radio" name="vote" value="5" autocomplete="off") 
+          label.btn.btn-light
+            input(type="radio" name="vote" id="btn-v7" value="5" autocomplete="off") 
             | 2020 Q1
-          label.btn.btn-light.col-sm-4
-            input(type="radio" name="vote" value="6" autocomplete="off" checked="")
+          label.btn.btn-light
+            input(type="radio" name="vote" id="btn-v8" value="6" autocomplete="off" checked="")
             | 2020 Q2
-          label.btn.btn-primary.col-sm-4
-            input(type="radio" name="vote" value="7" autocomplete="off")
+          label.btn.btn-danger
+            input(type="radio" name="vote" id="btn-v9" value="7" autocomplete="off")
             | 2021 Q1
-          label.btn.btn-primary.col-sm-4
-            input(type="radio" name="vote" value="8" autocomplete="off" checked="")
+          label.btn.btn-danger
+            input(type="radio" name="vote" id="btn-v10" value="8" autocomplete="off" checked="")
             | 2021 Q2
-          label.btn.btn-primary.col-sm-4
-            input(type="radio" name="vote" value="9" autocomplete="off") 
+          label.btn.btn-primary
+            input(type="radio" name="vote" id="btn-v11" value="9" autocomplete="off") 
             | 2022 Q1
-          label.btn.btn-danger.col-sm-4
-            input(type="radio" name="vote" value="10" autocomplete="off") 
+          label.btn.btn-primary
+            input(type="radio" name="vote" id="btn-v12" value="10" autocomplete="off") 
             | 2022 Q2
-          label.btn.btn-danger.col-sm-4
-            input(type="radio" name="vote" value="11" autocomplete="off" checked="")
+          label.btn.btn-light
+            input(type="radio" name="vote" id="btn-v13" value="11" autocomplete="off" checked="")
             | 2023 Q1
-          label.btn.btn-danger.col-sm-4
-            input(type="radio" name="vote" value="12" autocomplete="off")
+          label.btn.btn-light
+            input(type="radio" name="vote" id="btn-v14" value="12" autocomplete="off")
             | 2023 Q2
-          label.btn.btn-light.col-sm-4
-            input(type="radio" name="vote" value="13" autocomplete="off" checked="")
+          label.btn.btn-danger
+            input(type="radio" name="vote" id="btn-v15" value="13" autocomplete="off" checked="")
             | 2024 Q1
-          label.btn.btn-light.col-sm-4
-            input(type="radio" name="vote" value="14" autocomplete="off") 
+          label.btn.btn-danger
+            input(type="radio" name="vote" id="btn-v16" value="14" autocomplete="off") 
             | 2024 Q2
-          label.btn.btn-light.col-sm-4
-            input(type="radio" name="vote" value="15" autocomplete="off") 
+          label.btn.btn-light
+            input(type="radio" name="vote" id="btn-v17" value="15" autocomplete="off") 
             | 2025 Q1
         .col
           button.btn.btn-lg.col-12(v-on:click="voteClick", disabled)#btnVote
@@ -59,9 +65,12 @@
             .sk-bounce-1.sk-child
             .sk-bounce-2.sk-child
             .sk-bounce-3.sk-child
-      .resultBox(v-if="!showVote")
-        h1 The popular vote
-        canvas#canvas(style="width: 100%;display: block;margin: 0 auto;")
+      .resultBox.text-center(v-if="!showVote")
+        h1 Thank you for your vote
+        h2 Good luck America!
+        h3 Here is the popular vote:
+        .chart-container(style="position: relative; height:50vh;")
+          canvas#canvas(style="width: 100%;display: block;margin: 0 auto;")
         .share
           a(href="#")
             i.fab.fa-twitter-square
@@ -139,11 +148,12 @@ export default {
     },
     showGraph: function() {
       var chartData = this.voteData;
-      new Chart(document.getElementById("canvas"), {
+      var ctx = new Chart(document.getElementById("canvas"), {
         type: 'line',
         data: {
           labels: ['2018 Q1', '2018 Q2', '2019 Q1', '2019 Q2', '2020 Q1', '2020 Q2', '2021 Q1', '2021 Q2', '2022 Q1', '2022 Q2', '2023 Q1', '2023 Q2', '2024 Q1', '2024 Q2', '2025 Q1'],
           datasets: [{
+            label: "# of Votes",
             data: chartData,
             borderColor: "#d70206",
             fill: "#ed1c23",
@@ -181,7 +191,12 @@ export default {
           scales: {
             yAxes: [
               {
-                display: false
+                // display: false
+                ticks: {
+                  min: 0,
+                  max: 50,
+                  stepSize: 5
+                }
               }
             ],
             xAxes: [
